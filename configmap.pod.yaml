@@ -1,0 +1,25 @@
+#####################################
+# 2018 ithome ironman
+# Author: James Lu
+# Topic: k8s 不自賞 - Day 16 ConfigMap 
+# Url: https://ithelp.ithome.com.tw/articles/10193935
+# Licence: MIT
+#####################################
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-pod
+spec:
+  containers:
+  - name: config-pod
+    image: gcr.io/google_containers/busybox
+    command: ["/bin/sh", "-c", "env"]
+    env:
+    - name: MY_CONFIG_KEY
+      valueFrom:
+        configMapKeyRef:
+          name: myconfig
+          key: k1
+  restartPolicy: Never
+  
